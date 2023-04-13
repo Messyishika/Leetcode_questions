@@ -1,26 +1,26 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
+        //applying the two pointer approach
         int n = height.size();
-       vector<int>pre(n,0);
-        vector<int>suf(n,0);
+        int left = 0,leftmax = 0,rightmax = 0,ans;
+        int right = n-1;
         
-        
-       // pre.push_back(height[0]);
-        for(int i = 1;i<height.size();i++){
+        while(left<=right){
             
-           // int x = height[i];
-            pre[i] = max(height[i-1],pre[i-1]);
-        }
-        //suf.push_front(height[n-1]);
-        for(int i = n-2;i>=0;i--){
-            
-           // int x = height[i];
-            suf[i] = max(height[i+1],suf[i+1]);
-        }
-        int cnt = 0;
-        for(int i = 0;i<n;i++){
-            cnt += max(0,(min(pre[i],suf[i])) - height[i]);
-        }return cnt;
+            if(height[left] <= height[right])
+            {
+                if(height[left]>=leftmax)leftmax = height[left];
+                else
+                    ans += leftmax - height[left];
+                left++;
+            }
+            else{
+                if(height[right]>=rightmax)rightmax = height[right];
+                else
+                    ans += rightmax - height[right];
+                right--;
+            }
+        }return ans;
     }
 };
