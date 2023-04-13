@@ -12,7 +12,7 @@ public:
             while(!st.empty() && st.top()<=nums[i%n]){
                 st.pop();
             }
-            if(i<n){
+            if(i%n<n){
                 if(!st.empty()){
                     ans[i%n] = st.top();
                 }
